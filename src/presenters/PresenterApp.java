@@ -1,17 +1,27 @@
 package presenters;
 
 import java.time.LocalDate;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 
 import models.*;
 import views.Console;
+import resources.LoaderFile;
 
 public class PresenterApp {
 	
 	private CalculatorTaxe calculatorTaxe;
 	private Console console;
+	private LoaderFile loaderFile;
 	
-	public PresenterApp() {
-		calculatorTaxe = new CalculatorTaxe(10, LocalDate.of(2021, 4, 30), false, 50000, false, 20, 0, 30000000, 70000000, 200000000, 1.5, 2.0, 2.5 );
+	public PresenterApp() throws FileNotFoundException, IOException{
+		loaderFile = new LoaderFile();
+		calculatorTaxe = new CalculatorTaxe(loaderFile.getDiscountForEarlyPayment(), loaderFile.getMaxRangeForEarlyPayment(), loaderFile.getIsPublicTransport(), loaderFile.getValueOfDisccountByTypeTransport(), 
+											loaderFile.getIsOfBoyaca(), loaderFile.getValueOfDisccountByPlaceRegistration(), loaderFile.getInitialValueOfRange(), loaderFile.getFirstCutOfRange(), loaderFile.getSecondCutOfRange(),
+											loaderFile.getLastCutOfRange(), loaderFile.getTaxeForTheFirstRange(), loaderFile.getTaxeForTheSecondRange(), loaderFile.getTaxeForTheThirdRange());
 		console = new Console();
 		this.createBrand();
 		this.createLines();
