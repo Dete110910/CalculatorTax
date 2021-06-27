@@ -59,11 +59,10 @@ public class CalculatorTaxe {
 			return valueOfTaxe;
 		
 	}
-	
-	
+		
 	public ArrayList<Line> findLine(byte lineOption) {
-			return brand.get(lineOption - 1).getLine();
-		}
+		return brand.get(lineOption - 1).getLine();
+	}
 	
 	public ArrayList<Model> findModel(byte modelOption, byte lineOption){
 		return brand.get(lineOption - 1).getLine().get(modelOption - 1).getModel();
@@ -75,6 +74,37 @@ public class CalculatorTaxe {
 		}
 		else
 			return false;
+	}
+	
+	public void addNewBrand(String newVehicleBrand, double newValueBrand) {
+		getBrand().add(new Brand(newVehicleBrand, newValueBrand));
+	}
+	
+	public void addNewLine(String nameBrand, String newVehicleLine, double newVehicleValue){
+		for(int i = 0; i < brand.size(); i++) {
+			if(brand.get(i).getVehicleBrand() == nameBrand) {
+				brand.get(i).getLine().add(new Line(newVehicleLine, newVehicleValue));
+				return;
+			}
+		}
+	}
+	
+	public void addNewModel(String nameBrand, String nameLine, String newVehicleModel, double newVehicleValue) {
+		for(int i = 0; i < brand.size(); i++) {
+			if(brand.get(i).getVehicleBrand() == nameBrand && brand.get(i).getLine().get(i).getVehicleLine() == nameLine){
+				brand.get(i).getLine().get(i).getModel().add(new Model(newVehicleModel, newVehicleValue));
+			}
+		}
+		
+	}
+	
+	public ArrayList<Line> findLinesByNameOfBrand(String nameOfBrand){
+		for(int i = 0; i < brand.size(); i++) {
+			if(brand.get(i).getVehicleBrand() == nameOfBrand){
+				return brand.get(i).getLine();
+			}
+		}
+		return null; //sé que es una mala práctica pero no sé qué más hacerle
 	}
 	
 	public void updateInitialRangeForPaymentOfTaxe(double updateValue) {
