@@ -39,7 +39,10 @@ public class PresenterApp {
 					break;
 			case 2: 
 					this.modifyValues();
-					break;		
+					break;
+			case 3:
+					this.addNewBrandLineOrModel();
+					break;
 			case 0: 
 					break;
 		}
@@ -47,14 +50,27 @@ public class PresenterApp {
 	
 	private void calculateTaxe() {
 		byte brandOption = console.readVehicleBrand(calculatorTaxe.getBrand());
-		byte lineOption = console.readVehicleLine(calculatorTaxe.findLine(brandOption));
-		byte modelOption = console.readVehicleModel(calculatorTaxe.findModel(lineOption, brandOption));
-		double totalValue = calculatorTaxe.getBrand().get(brandOption - 1).getValueVehicleBrand();
-		totalValue += calculatorTaxe.getBrand().get(brandOption - 1).getLine().get(lineOption - 1).getValueVehicleLine();
-		totalValue += calculatorTaxe.getBrand().get(brandOption - 1).getLine().get(lineOption - 1).getModel().get(modelOption - 1).getValueVehicleModel();
-		totalValue += calculatorTaxe.calculateTaxeByComercialValue(totalValue);
-		console.showValueOfTaxe(totalValue);
-		this.calculateDisccounts(totalValue);
+		if(calculatorTaxe.findLine(brandOption).size() > 0) {
+			byte lineOption = console.readVehicleLine(calculatorTaxe.findLine(brandOption));
+			if(calculatorTaxe.findModel(lineOption, brandOption).size() > 0) {
+				byte modelOption = console.readVehicleModel(calculatorTaxe.findModel(lineOption, brandOption));
+				double totalValue = calculatorTaxe.getBrand().get(brandOption - 1).getValueVehicleBrand();
+				totalValue += calculatorTaxe.getBrand().get(brandOption - 1).getLine().get(lineOption - 1).getValueVehicleLine();
+				totalValue += calculatorTaxe.getBrand().get(brandOption - 1).getLine().get(lineOption - 1).getModel().get(modelOption - 1).getValueVehicleModel();
+				totalValue += calculatorTaxe.calculateTaxeByComercialValue(totalValue);
+				console.showValueOfTaxe(totalValue);
+				this.calculateDisccounts(totalValue);
+			}
+			else {
+				console.showErrorNoElementsInList();
+				this.runApp();
+			}
+				
+		}
+		else {
+			console.showErrorNoElementsInList();
+			this.runApp();
+		}
 	}
 	
 	private void calculateDisccounts(double totalValue) {
@@ -140,6 +156,54 @@ public class PresenterApp {
 		
 	}
 	
+	
+	private void addNewBrandLineOrModel() {
+		byte option = console.readOptionMenuAddBLM();
+		switch(option) {
+				case 1:
+						this.addNewBrand();
+						break;
+				case 2: 
+						this.addNewLine();
+						break;
+				case 3: 
+						this.addNewModel();
+						break;
+				case 0:
+						this.runApp();
+						break;
+		}
+	}
+	
+	private void addNewBrand() {
+		String nameOfBrand = console.readNewBrand();
+		double valueOfBrand = console.readValueNewBrand();
+		calculatorTaxe.addNewBrand(nameOfBrand, valueOfBrand);
+		console.showBrandAdded();
+		this.addNewBrandLineOrModel();
+	}
+	
+	private void addNewLine() {
+		String nameOfBrand = console.readNewVehicleBrands(calculatorTaxe.getBrand());
+		String nameOfLine = console.readNewLine();
+		double valueOfLine = console.readValueNewLine();
+		calculatorTaxe.addNewLine(nameOfBrand, nameOfLine, valueOfLine);
+		console.showLineAdded();
+		this.addNewBrandLineOrModel();
+	}
+	
+	private void addNewModel() {
+		String nameOfBrand = console.readNewVehicleBrands(calculatorTaxe.getBrand());
+		String nameOfLine = console.readNewVehicleLine(calculatorTaxe.findLinesByNameOfBrand(nameOfBrand));
+		String nameOfNewModel = console.readNewModel();
+		double valueOfNewModel = console.readValueNewModel();
+		calculatorTaxe.addNewModel(nameOfBrand, nameOfLine, nameOfNewModel, valueOfNewModel);
+		console.showModelAdded();
+		this.addNewBrandLineOrModel();
+		
+		
+	}
+	
 	private void createBrand() {
 		calculatorTaxe.getBrand().add(new Brand("Chevrolet", 20000000));
 		calculatorTaxe.getBrand().add(new Brand("Toyota", 30000000));
@@ -167,6 +231,12 @@ public class PresenterApp {
 		calculatorTaxe.getBrand().get(0).getLine().get(1).getModel().add(new Model("Modelo 2 C", 9000000));
 		calculatorTaxe.getBrand().get(1).getLine().get(0).getModel().add(new Model("Modelo 1 To", 5000000));
 		calculatorTaxe.getBrand().get(1).getLine().get(1).getModel().add(new Model("Modelo 1 To", 7000000));
+		calculatorTaxe.getBrand().get(2).getLine().get(0).getModel().add(new Model("Modelo 1 B", 8000000));
+		calculatorTaxe.getBrand().get(2).getLine().get(1).getModel().add(new Model("Modelo 1 B", 7900000));
+		calculatorTaxe.getBrand().get(3).getLine().get(0).getModel().add(new Model("Modelo 1 H", 8900000));
+		calculatorTaxe.getBrand().get(3).getLine().get(1).getModel().add(new Model("Modelo 1 H", 9900000));
+		calculatorTaxe.getBrand().get(3).getLine().get(0).getModel().add(new Model("Modelo 1 T", 1900000));
+		calculatorTaxe.getBrand().get(3).getLine().get(1).getModel().add(new Model("Modelo 1 T", 2900000));
 	}
 
 	
