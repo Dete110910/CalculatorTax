@@ -5,12 +5,10 @@ import java.util.ArrayList;
 public class Brand {
 
 	private String vehicleBrand;
-	private double valueVehicleBrand;
 	private ArrayList<Line> line;
 	
-	public Brand(String vehicleBrand, double valueVehicleBrand) {
+	public Brand(String vehicleBrand) {
 		this.vehicleBrand = vehicleBrand;
-		this.valueVehicleBrand = valueVehicleBrand;
 		line = new ArrayList<Line>();
 	}
 
@@ -30,13 +28,7 @@ public class Brand {
 		this.vehicleBrand = vehicleBrand;
 	}
 
-	public double getValueVehicleBrand() {
-		return valueVehicleBrand;
-	}
 
-	public void setValueVehicleBrand(double valueVehicleBrand) {
-		this.valueVehicleBrand = valueVehicleBrand;
-	}
 	
 	@Override
 	public String toString() {

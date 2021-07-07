@@ -1,0 +1,8 @@
+marca1,linea1,modelo1,255555
+marca1,linea2,modelo2,555555
+marca2,linea1,modelo3,55555
+marca2,linea2,modelo4,555555
+marca3,linea1,modelo4,555555
+marca3,linea2,modelo4,555555
+marca4,linea1,modelo4,5555555
+marca4,linea2,modelo4,555555

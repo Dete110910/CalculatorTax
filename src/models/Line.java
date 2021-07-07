@@ -5,13 +5,11 @@ import java.util.ArrayList;
 public class Line {
 
 	private String vehicleLine;
-	private double valueVehicleLine;
 	private ArrayList<Model> model;
 	
 
-	public Line(String vehicleLine, double valueVehicleLine) {
+	public Line(String vehicleLine) {
 		this.vehicleLine = vehicleLine;
-		this.valueVehicleLine = valueVehicleLine;
 		model = new ArrayList<Model>();
 	}
 	
@@ -30,13 +28,6 @@ public class Line {
 		this.vehicleLine = vehicleLine;
 	}
 	
-	public double getValueVehicleLine() {
-		return this.valueVehicleLine;
-	}
-	
-	public void setValueVehicle(double valueVehicleLine) {
-		this.valueVehicleLine = valueVehicleLine;
-	}
 	
 	@Override
 	public String toString() {

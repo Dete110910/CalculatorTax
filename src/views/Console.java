@@ -15,7 +15,7 @@ public class Console {
 													"\n1.Averiguar el impuesto a pagar por mi vehículo.\n" +
 													"2.Actualizar los lineamientos.\n" +
 													"3.Agregar nuevas marcas, lineas o modelos\n" +
-													" 0.Salir de la aplicación \n";
+													"0.Salir de la aplicación \n";
 	public static final String ERROR_INVALID_OPTION = "No pudimos encontrar la opción seleccionada. Por favor, intentelo nuevamente. \n";
 	public static final String MESSAGE_FOR_ENTRY_PAY_DATE = "\nPor favor ingrese la fecha en que pagará sus impuestos en formato \"d/M/yyyy\": ";
 	public static final String MESSAGE_FOR_UPDATE_PAY_DATE = "\nPor favor ingrese la fecha en que desea asignar para máximo pago anticipado en formato \"d/M/yyyy\": ";
